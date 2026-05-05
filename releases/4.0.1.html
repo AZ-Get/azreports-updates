@@ -1,92 +1,704 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحديث AZ Reports - 4.0.1</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body {
-            font-family: Tahoma, Arial, sans-serif;
-            background: #f4f7fb;
+        :root {
+            --page-bg: #07111f;
+            --nav-bg: rgba(6, 16, 33, 0.88);
+            --card-bg: rgba(10, 24, 47, 0.84);
+            --card-bg-soft: rgba(15, 34, 66, 0.62);
+            --text: #f4f8ff;
+            --muted: rgba(244, 248, 255, 0.68);
+            --line: rgba(255, 255, 255, 0.11);
+            --blue: #2f8cff;
+            --blue-dark: #195bd7;
+            --purple: #8c52ff;
+            --green: #35d06f;
+            --green-dark: #159250;
+            --orange: #ff9017;
+            --orange-dark: #c46010;
+            --danger: #ff4d5e;
+            --radius: 24px;
+            --shadow: 0 22px 60px rgba(0, 0, 0, 0.34);
+        }
+
+        * {
             margin: 0;
-            padding: 30px;
-            color: #222;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
         }
 
-        .box {
-            max-width: 850px;
-            margin: auto;
-            background: #fff;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        html {
+            scroll-behavior: smooth;
         }
 
-        h1 {
-            color: #1a2980;
-            margin-top: 0;
+        body {
+            min-height: 100vh;
+            color: var(--text);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.65;
+            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 15% 18%, rgba(140, 82, 255, 0.20), transparent 28%),
+                radial-gradient(circle at 82% 22%, rgba(47, 140, 255, 0.18), transparent 30%),
+                radial-gradient(circle at 50% 76%, rgba(53, 208, 111, 0.07), transparent 32%),
+                linear-gradient(135deg, #040814 0%, #07111f 48%, #08213e 100%);
+            position: relative;
         }
 
-        .version {
-            background: #eef3ff;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            line-height: 2;
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        ul {
-            line-height: 2;
+        body::before {
+            inset: 0;
+            background:
+                linear-gradient(115deg, transparent 0 24%, rgba(47, 140, 255, 0.055) 25%, transparent 38%),
+                linear-gradient(245deg, transparent 0 58%, rgba(140, 82, 255, 0.055) 59%, transparent 72%);
+            opacity: 0.75;
         }
 
-        .download {
-            display: inline-block;
-            margin-top: 20px;
-            background: #1a2980;
+        body::after {
+            width: 520px;
+            height: 520px;
+            left: -220px;
+            top: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(140, 82, 255, 0.18), transparent 68%);
+            filter: blur(8px);
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page-shell {
+            width: min(100% - 28px, 1180px);
+            margin: 0 auto;
+            padding: 14px 0 38px;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 14px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 13px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 18px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 16px 42px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 260px;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 13px;
+            display: inline-grid;
+            place-items: center;
+            background: linear-gradient(135deg, #2f8cff, #28c7d9);
             color: white;
-            padding: 14px 22px;
-            border-radius: 10px;
+            box-shadow: 0 0 26px rgba(47, 140, 255, 0.38);
+            font-size: 19px;
+            flex: 0 0 auto;
+        }
+
+        .logo-text {
+            font-weight: 900;
+            font-size: 18px;
+            white-space: nowrap;
+        }
+
+        .nav-version {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(244, 248, 255, 0.84);
+            background: rgba(47, 140, 255, 0.12);
+            border: 1px solid rgba(47, 140, 255, 0.22);
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .header-section {
+            text-align: center;
+            padding: 58px 12px 28px;
+            position: relative;
+        }
+
+        .header-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 11px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 900;
+            color: #a9d7ff;
+            background: rgba(47, 140, 255, 0.10);
+            border: 1px solid rgba(47, 140, 255, 0.18);
+        }
+
+        .header-section h1 {
+            font-size: clamp(2.15rem, 4vw, 3.85rem);
+            line-height: 1.20;
+            color: #fff;
+            font-weight: 900;
+            margin-bottom: 12px;
+            text-shadow: 0 12px 34px rgba(0, 0, 0, 0.36);
+        }
+
+        .header-section h1 span {
+            color: #75c6ff;
+        }
+
+        .header-section p {
+            font-size: clamp(0.98rem, 1.5vw, 1.16rem);
+            color: var(--muted);
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .release-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            align-items: stretch;
+            margin: 0 auto 22px;
+        }
+
+        .release-card {
+            --accent: var(--blue);
+            --accent-dark: var(--blue-dark);
+            --accent-glow: rgba(47, 140, 255, 0.27);
+            --accent-border: rgba(47, 140, 255, 0.62);
+            --accent-shadow: rgba(47, 140, 255, 0.25);
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+                var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.075);
+            transition: 0.25s ease;
+        }
+
+        .release-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 0%, var(--accent-glow), transparent 42%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 34%);
+            pointer-events: none;
+        }
+
+        .release-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            inset-inline: 34px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.75;
+        }
+
+        .release-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-border);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42), 0 0 30px var(--accent-shadow);
+        }
+
+        .main-card {
+            padding: 30px;
+        }
+
+        .side-card {
+            padding: 26px;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .version-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 20px;
+            padding: 9px 15px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 900;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            box-shadow: 0 14px 28px rgba(47, 140, 255, 0.26);
+        }
+
+        .release-title {
+            font-size: clamp(1.65rem, 2.7vw, 2.35rem);
+            line-height: 1.30;
+            color: #fff;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .release-title span {
+            color: #75c6ff;
+        }
+
+        .release-desc {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 24px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .meta-box {
+            min-height: 92px;
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(255, 255, 255, 0.085);
+        }
+
+        .meta-box i {
+            width: 34px;
+            height: 34px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 12px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+            box-shadow: 0 0 18px rgba(47, 140, 255, 0.20);
+            margin-bottom: 8px;
+        }
+
+        .meta-label {
+            display: block;
+            color: rgba(244, 248, 255, 0.58);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .meta-value {
+            display: block;
+            color: #fff;
+            font-size: 19px;
+            font-weight: 900;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .changes-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .changes-title i {
+            color: #35d06f;
+        }
+
+        .changes-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .changes-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 0;
+            color: rgba(244, 248, 255, 0.84);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .changes-list li:last-child {
+            border-bottom: none;
+        }
+
+        .changes-list li i {
+            width: 23px;
+            height: 23px;
+            flex: 0 0 23px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #fff;
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            box-shadow: 0 0 16px rgba(53, 208, 111, 0.16);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .download-panel {
+            text-align: center;
+        }
+
+        .download-icon-wrap {
+            height: 170px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 12px;
+        }
+
+        .download-icon {
+            position: relative;
+            width: 132px;
+            height: 94px;
+            display: grid;
+            place-items: center;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 38px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a95bff, #3157ff 55%, #19c4ba);
+            box-shadow: 0 22px 56px rgba(140, 82, 255, 0.42), inset 0 2px 0 rgba(255, 255, 255, 0.24);
+            transform: perspective(520px) rotateX(56deg) rotateZ(-24deg);
+        }
+
+        .download-icon::before,
+        .download-icon::after {
+            content: "";
+            position: absolute;
+            inset: -28px;
+            border-radius: 50%;
+            border: 1px solid rgba(189, 141, 255, 0.42);
+            transform: rotate(12deg);
+        }
+
+        .download-icon::after {
+            inset: -44px;
+            border-color: rgba(47, 140, 255, 0.22);
+            transform: rotate(-15deg);
+        }
+
+        .side-card h2 {
+            color: #fff;
+            font-size: 1.55rem;
+            font-weight: 900;
+            line-height: 1.35;
+            margin-bottom: 8px;
+        }
+
+        .side-card p {
+            color: var(--muted);
+            font-size: 0.96rem;
+            margin-bottom: 18px;
+        }
+
+        .note-box {
+            margin: 18px 0;
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255, 144, 23, 0.10);
+            border: 1px solid rgba(255, 144, 23, 0.26);
+            color: rgba(255, 235, 205, 0.92);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .note-box i {
+            color: var(--orange);
+            margin-left: 7px;
+        }
+
+        .download-btn {
+            width: 100%;
+            min-height: 54px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 13px 18px;
+            border-radius: 16px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 900;
+            font-size: 1.03rem;
+            color: #fff;
+            background: linear-gradient(135deg, var(--green), var(--green-dark));
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 16px 34px rgba(53, 208, 111, 0.16);
+            transition: 0.22s ease;
         }
 
-        .download:hover {
-            background: #15206e;
+        .download-btn:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.07);
         }
 
-        .note {
-            margin-top: 20px;
-            padding: 12px;
-            background: #fff8e1;
-            border: 1px solid #ffe0a3;
-            border-radius: 10px;
-            color: #6b4b00;
+        .secondary-btn {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 11px 16px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 900;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            transition: 0.22s ease;
+        }
+
+        .secondary-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(47, 140, 255, 0.12);
+            border-color: rgba(47, 140, 255, 0.36);
+        }
+
+        .footer-note {
+            text-align: center;
+            color: rgba(244, 248, 255, 0.46);
+            font-size: 13px;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 920px) {
+            .release-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-icon-wrap {
+                height: 130px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .page-shell {
+                width: min(100% - 18px, 1180px);
+                padding-top: 9px;
+            }
+
+            .navbar {
+                position: relative;
+                top: auto;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 13px;
+            }
+
+            .logo-container {
+                min-width: 0;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .logo-text {
+                white-space: normal;
+                text-align: center;
+            }
+
+            .nav-version {
+                justify-content: center;
+            }
+
+            .header-section {
+                padding: 36px 8px 22px;
+            }
+
+            .main-card,
+            .side-card {
+                padding: 22px 16px;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .release-card {
+                border-radius: 21px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-section h1 {
+                font-size: 1.95rem;
+            }
+
+            .header-section p {
+                font-size: 0.94rem;
+            }
+
+            .download-icon {
+                width: 104px;
+                height: 76px;
+                border-radius: 20px;
+                font-size: 31px;
+            }
+
+            .download-icon-wrap {
+                height: 100px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="box">
-        <h1>تم إصدار تحديث جديد لبرنامج AZ Reports</h1>
+    <div class="page-shell">
+        <div class="navbar">
+            <div class="logo-container">
+                <span class="logo-mark"><i class="fas fa-chart-simple"></i></span>
+                <span class="logo-text">AZ Solutions - نظام التقارير</span>
+            </div>
 
-        <div class="version">
-            <div><strong>رقم الإصدار الجديد:</strong> 4.0.1</div>
-            <div><strong>تاريخ الإصدار:</strong> 2026-05-05</div>
+            <div class="nav-version">
+                <i class="fas fa-code-branch"></i>
+                إصدار 4.0.1
+            </div>
         </div>
 
-        <h2>ما الجديد في هذا الإصدار؟</h2>
-        <ul>
-            <li>تحسين أداء تحميل التقارير.</li>
-            <li>حل مشكلة تحديث الملفات في نسخة التسطيب.</li>
-            <li>تحسين صفحة تسجيل الدخول.</li>
-            <li>إصلاح بعض مشاكل الطباعة.</li>
-        </ul>
-
-        <div class="note">
-            يفضل إغلاق البرنامج قبل تثبيت التحديث الجديد.
+        <div class="header-section">
+            <div class="header-kicker">
+                <i class="fas fa-cloud-arrow-down"></i>
+                مركز تحديثات AZ Reports
+            </div>
+            <h1>تم إصدار تحديث جديد <span>لبرنامج AZ Reports</span></h1>
+            <p>
+                نعمل باستمرار على تحسين الأداء وتجربة الاستخدام وإصلاح المشاكل التي تظهر أثناء التشغيل لدى العملاء.
+            </p>
         </div>
 
-        <a class="download" href="https://github.com/AZ-Get/azreports-updates/releases/download/v4.0.1/AZ-Reports-4.0.1.exe">
-            تحميل التحديث
-        </a>
+        <div class="release-grid">
+            <section class="release-card main-card">
+                <div class="card-content">
+                    <div class="version-badge">
+                        <i class="fas fa-star"></i>
+                        تحديث رسمي متاح الآن
+                    </div>
+
+                    <h2 class="release-title">
+                        تفاصيل إصدار <span>4.0.1</span>
+                    </h2>
+
+                    <p class="release-desc">
+                        يحتوي هذا الإصدار على مجموعة تحسينات وإصلاحات تهدف إلى جعل النظام أكثر استقرارًا وسلاسة.
+                    </p>
+
+                    <div class="meta-grid">
+                        <div class="meta-box">
+                            <i class="fas fa-hashtag"></i>
+                            <span class="meta-label">رقم الإصدار</span>
+                            <span class="meta-value">4.0.1</span>
+                        </div>
+
+                        <div class="meta-box">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="meta-label">تاريخ الإصدار</span>
+                            <span class="meta-value">2026-05-05</span>
+                        </div>
+                    </div>
+
+                    <div class="changes-title">
+                        <i class="fas fa-list-check"></i>
+                        ما الجديد في هذا الإصدار؟
+                    </div>
+
+                    <ul class="changes-list">
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>تحسين أداء تحميل التقارير.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>حل مشكلة تحديث الملفات في نسخة التسطيب.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>تحسين صفحة تسجيل الدخول.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check"></i>
+                            <span>إصلاح بعض مشاكل الطباعة.</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <aside class="release-card side-card">
+                <div class="card-content download-panel">
+                    <div class="download-icon-wrap">
+                        <div class="download-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+
+                    <h2>تحميل التحديث</h2>
+                    <p>
+                        اضغط على الزر التالي لتحميل ملف تثبيت الإصدار الجديد من GitHub.
+                    </p>
+
+                    <div class="note-box">
+                        <i class="fas fa-triangle-exclamation"></i>
+                        يفضل إغلاق البرنامج والخدمة قبل تثبيت التحديث الجديد.
+                    </div>
+
+                    <a class="download-btn" href="https://github.com/AZ-Get/azreports-updates/releases/download/v4.0.1/AZ-Reports-4.0.1.exe">
+                        تحميل AZ Reports 4.0.1
+                        <i class="fas fa-arrow-down"></i>
+                    </a>
+
+                    <a class="secondary-btn" href="https://github.com/AZ-Get/azreports-updates/releases">
+                        عرض كل الإصدارات
+                        <i class="fas fa-clock-rotate-left"></i>
+                    </a>
+                </div>
+            </aside>
+        </div>
+
+        <div class="footer-note">
+            AZ Solutions © مركز تحديثات AZ Reports
+        </div>
     </div>
 </body>
+
 </html>
