@@ -3,7 +3,7 @@
   "release_date": "2026-05-05",
   "title": "تم إصدار نسخة جديدة",
   "details_url": "https://AZ-Get.github.io/azreports-updates/releases/4.0.1.html",
-  "download_url": "https://github.com/AZ-Get/azreports-updates/releases/download/v4.0.1/AZReportsSetup_4.0.1.exe",
+  "download_url": "https://github.com/AZ-Get/azreports-updates/releases/download/v4.0.1/AZ-Reports-4.0.1.exe",
   "changes": [
     "تحسين أداء تحميل التقارير",
     "حل مشكلة تحديث الملفات في نسخة التسطيب",
