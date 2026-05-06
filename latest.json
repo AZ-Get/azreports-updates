@@ -1,13 +1,13 @@
 {
-  "version": "4.0.1",
-  "release_date": "2026-05-05",
+  "version": "4.0.2",
+  "release_date": "2026-05-06",
   "title": "تم إصدار نسخة جديدة",
-  "details_url": "https://AZ-Get.github.io/azreports-updates/releases/4.0.1.html",
-  "download_url": "https://github.com/AZ-Get/azreports-updates/releases/download/v4.0.1/AZ-Reports-4.0.1.exe",
+  "details_url": "https://AZ-Get.github.io/azreports-updates/releases/4.0.2.html",
+  "download_url": "https://github.com/AZ-Get/azreports-updates/releases/download/v4.0.2/AZ-Reports-4.0.2.exe",
   "changes": [
-    "تحسين أداء تحميل التقارير",
+    "تحسين ميزة الذكاء الاصطناعي وربطها بالتقارير وتحليلات تلقائية للتقارير",
     "حل مشكلة تحديث الملفات في نسخة التسطيب",
     "تحسين صفحة تسجيل الدخول",
-    "إصلاح بعض مشاكل الطباعة"
+    "تحسين واجهة استعراض التقارير على الموبايل"
   ]
 }
