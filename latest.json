@@ -1,13 +1,13 @@
 {
-  "version": "4.1.0",
-  "release_date": "2026-05-25",
+  "version": "4.1.1",
+  "release_date": "2026-07-30",
   "title": "تم إصدار نسخة جديدة",
-  "details_url": "https://AZ-Get.github.io/azreports-updates/releases/4.1.0.html",
-  "download_url": "https://github.com/AZ-Get/azreports-updates/releases/download/v4.1.0/AZ-Reports-4.1.0.exe",
+  "details_url": "https://AZ-Get.github.io/azreports-updates/releases/4.1.1.html",
+  "download_url": "https://github.com/AZ-Get/azreports-updates/releases/download/v4.1.1/AZ-Reports-4.1.1.exe",
   "changes": [
-    "تحسين ميزة الذكاء الاصطناعي وربطها بالتقارير وتحليلات تلقائية للتقارير",
-    "حل مشكلة تحديث الملفات في نسخة التسطيب",
-    "تحسين صفحة تسجيل الدخول",
-    "تحسين واجهة استعراض التقارير على الموبايل"
+    "تحسين عرض بعض الوجهات على الشاشات",
+    "اظهار اسماء قواعد البيانات في التقارير المالية المقارنة",
+    "تحسين طريقة عرض التاريخ في نافذة المعاينة ونافذة استعراض التقارير",
+    "تحسين طريقة عرض القوائم المنسدلة في نافذة المعاينة ونافذة استعراض التقارير"
   ]
 }
